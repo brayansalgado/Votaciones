@@ -10,108 +10,107 @@ using Votaciones.Models;
 
 namespace Votaciones.Controllers
 {
-    [Authorize]
-    public class EstadosController : Controller
+    public class GruposController : Controller
     {
         private VotacionesContext db = new VotacionesContext();
 
-        // GET: Estados
+        // GET: Grupos
         public ActionResult Index()
         {
-            return View(db.Estados.ToList());
+            return View(db.Grupoes.ToList());
         }
 
-        // GET: Estados/Details/5
+        // GET: Grupos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Estado estado = db.Estados.Find(id);
-            if (estado == null)
+            Grupo grupo = db.Grupoes.Find(id);
+            if (grupo == null)
             {
                 return HttpNotFound();
             }
-            return View(estado);
+            return View(grupo);
         }
 
-        // GET: Estados/Create
+        // GET: Grupos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Estados/Create
+        // POST: Grupos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Estado estado)
+        public ActionResult Create( Grupo grupo)
         {
             if (ModelState.IsValid)
             {
-                db.Estados.Add(estado);
+                db.Grupoes.Add(grupo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(estado);
+            return View(grupo);
         }
 
-        // GET: Estados/Edit/5
+        // GET: Grupos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Estado estado = db.Estados.Find(id);
-            if (estado == null)
+            Grupo grupo = db.Grupoes.Find(id);
+            if (grupo == null)
             {
                 return HttpNotFound();
             }
-            return View(estado);
+            return View(grupo);
         }
 
-        // POST: Estados/Edit/5
+        // POST: Grupos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Estado estado)
+        public ActionResult Edit( Grupo grupo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(estado).State = EntityState.Modified;
+                db.Entry(grupo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(estado);
+            return View(grupo);
         }
 
-        // GET: Estados/Delete/5
+        // GET: Grupos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Estado estado = db.Estados.Find(id);
-            if (estado == null)
+            Grupo grupo = db.Grupoes.Find(id);
+            if (grupo == null)
             {
                 return HttpNotFound();
             }
-            return View(estado);
+            return View(grupo);
         }
 
-        // POST: Estados/Delete/5
+        // POST: Grupos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Estado estado = db.Estados.Find(id);
-            db.Estados.Remove(estado);
+            Grupo grupo = db.Grupoes.Find(id);
+            db.Grupoes.Remove(grupo);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

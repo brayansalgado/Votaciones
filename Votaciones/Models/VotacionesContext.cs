@@ -12,5 +12,7 @@ namespace Votaciones.Models
         {
     }
         public DbSet<Estado> Estados { get; set; }
+
+        public System.Data.Entity.DbSet<Votaciones.Models.Grupo> Grupoes { get; set; }
     }
 }

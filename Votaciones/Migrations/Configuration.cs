@@ -5,14 +5,16 @@ namespace Votaciones.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Votaciones.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Votaciones.Models.VotacionesContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
+            ContextKey = "Votaciones.Models.VotacionesContext";
         }
 
-        protected override void Seed(Votaciones.Models.ApplicationDbContext context)
+        protected override void Seed(Votaciones.Models.VotacionesContext context)
         {
             //  This method will be called after migrating to the latest version.
 

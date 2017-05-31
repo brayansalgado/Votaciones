@@ -6,15 +6,15 @@ using System.Web;
 
 namespace Votaciones.Models
 {
-    public class Estado
+    public class Grupo
     {
         [Key]
-        [Display(Name = "Estado Votación")]
-        public int idEstado { get; set; }
-        [Display(Name = "Estado Votación")]
+
+        public int idGrupo { get; set; }
+
+        [Display(Name = "Descripción")]
         [Required(ErrorMessage = "Usted debe ingresar {0}")]
         [StringLength(50, ErrorMessage = "El campo {0} debe tener minimo {2} caracteres.", MinimumLength = 3)]
         public String descripcion { get; set; }
-
     }
 }
