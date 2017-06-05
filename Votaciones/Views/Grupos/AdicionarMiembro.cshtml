@@ -1,0 +1,46 @@
+﻿@model Votaciones.Models.AdicionarMiembroVista
+@{
+    ViewBag.Title = "AdicionarMiembro";
+}
+
+<h2>Adicionar Miembro a grupo</h2>
+<h3>@ViewBag.Error</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Censo</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.idGrupo)
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.idPersona, "Persona", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("idPersona", "[Seleccione opción...]")
+                @Html.ValidationMessageFor(model => model.idPersona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver a la Lista", "Index",new { },new { @class="btn btn-primary"})
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
+

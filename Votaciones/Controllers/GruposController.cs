@@ -10,14 +10,50 @@ using Votaciones.Models;
 
 namespace Votaciones.Controllers
 {
+    [Authorize]
     public class GruposController : Controller
     {
         private VotacionesContext db = new VotacionesContext();
 
+       [HttpGet]
+        public ActionResult AdicionarMiembro(int idGrupo)
+        {
+            ViewBag.idPersona = new SelectList(db.Personas.OrderBy(u=>u.nombrePersona), "idPersona", "nombrePersona");
+            var view = new AdicionarMiembroVista()
+            {
+                idGrupo = idGrupo
+            };
+            return View(view);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdicionarMiembro(AdicionarMiembroVista view)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.idPersona = new SelectList(db.Personas.OrderBy(u => u.nombrePersona), "idPersona", "nombrePersona");
+                return View(view);
+            }
+
+            var miembro = db.MiembrosDeGrupo.Where(gm => gm.idGrupo == view.idGrupo && gm.idPersona == view.idPersona).FirstOrDefault();
+            if (miembro!=null)
+            {
+                ViewBag.Error = "El miembro ya ha sido asignado al grupo ";
+                return View(view);
+            }
+            miembro = new MiembroDeGrupo
+            {
+                idGrupo=view.idGrupo,
+                idPersona=view.idPersona,
+            };
+            db.MiembrosDeGrupo.Add(miembro);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         // GET: Grupos
         public ActionResult Index()
         {
-            return View(db.Grupoes.ToList());
+            return View(db.Grupos.ToList());
         }
 
         // GET: Grupos/Details/5
@@ -27,12 +63,19 @@ namespace Votaciones.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Grupo grupo = db.Grupoes.Find(id);
+            Grupo grupo = db.Grupos.Find(id);
             if (grupo == null)
             {
                 return HttpNotFound();
             }
-            return View(grupo);
+            var view = new DetalleGrupoVista
+            {
+                idGrupo = grupo.idGrupo,
+                descripcion= grupo.descripcion,
+                miembros= grupo.miembrosDeGrupo.ToList(),
+
+            };
+            return View(view);
         }
 
         // GET: Grupos/Create
@@ -50,7 +93,7 @@ namespace Votaciones.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Grupoes.Add(grupo);
+                db.Grupos.Add(grupo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +108,7 @@ namespace Votaciones.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Grupo grupo = db.Grupoes.Find(id);
+            Grupo grupo = db.Grupos.Find(id);
             if (grupo == null)
             {
                 return HttpNotFound();
@@ -96,7 +139,7 @@ namespace Votaciones.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Grupo grupo = db.Grupoes.Find(id);
+            Grupo grupo = db.Grupos.Find(id);
             if (grupo == null)
             {
                 return HttpNotFound();
@@ -109,9 +152,27 @@ namespace Votaciones.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Grupo grupo = db.Grupoes.Find(id);
-            db.Grupoes.Remove(grupo);
+            Grupo grupo = db.Grupos.Find(id);
+            db.Grupos.Remove(grupo);
             db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null &&
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.Message.Contains("REFERENCE"))
+                {
+                    ViewBag.Error = "No se puede borrar el elemento porque está relacionado con otros datos";
+                }
+                else
+                {
+                    ViewBag.Error = ex.Message;
+                }
+                return View(grupo);
+            }
             return RedirectToAction("Index");
         }
 

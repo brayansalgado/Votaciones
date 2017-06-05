@@ -11,10 +11,10 @@ namespace Votaciones.Models
         [Key]
         [Display(Name = "Estado Votación")]
         public int idEstado { get; set; }
-        [Display(Name = "Estado Votación")]
+        [Display(Name = " Descripcioón Estado Votación")]
         [Required(ErrorMessage = "Usted debe ingresar {0}")]
         [StringLength(50, ErrorMessage = "El campo {0} debe tener minimo {2} caracteres.", MinimumLength = 3)]
         public String descripcion { get; set; }
-
+        public virtual ICollection<Censo>censos { get; set; }
     }
 }

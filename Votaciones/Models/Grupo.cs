@@ -16,5 +16,6 @@ namespace Votaciones.Models
         [Required(ErrorMessage = "Usted debe ingresar {0}")]
         [StringLength(50, ErrorMessage = "El campo {0} debe tener minimo {2} caracteres.", MinimumLength = 3)]
         public String descripcion { get; set; }
+        public virtual ICollection<MiembroDeGrupo> miembrosDeGrupo { get; set; }
     }
 }

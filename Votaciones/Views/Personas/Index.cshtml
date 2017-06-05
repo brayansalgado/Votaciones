@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Votaciones.Models.Persona>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Personas</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombrePersona)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cargo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grupo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.foto)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombrePersona)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cargo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.grupo)
+        </td>
+        <td>   
+            @if(!string.IsNullOrEmpty(item.foto))
+            {
+                <img src="@Url.Content(item.foto)" alt="foto" style="width:100px;height:100px;max-width: 100%;height: auto;"/>
+            }
+             
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idPersona }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idPersona }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idPersona })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,4 +1,4 @@
-﻿@model Votaciones.Models.Grupo
+﻿@model Votaciones.Models.DetalleGrupoVista
 
 @{
     ViewBag.Title = "Details";
@@ -20,7 +20,71 @@
 
     </dl>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.idGrupo }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.idGrupo }) 
+    @Html.ActionLink("Adicionar Miembro", "AdicionarMiembro", new { idGrupo = Model.idGrupo })
+    @Html.ActionLink("Volver a la lista", "Index" )
 </p>
+@if (Model.miembros.Count==0)
+{
+    <h4>No hay miembros adicionados aún</h4>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.miembros[0].persona.nombrePersona)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.miembros[0].persona.usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.miembros[0].persona.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.miembros[0].persona.cargo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.miembros[0].persona.grupo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.miembros[0].persona.foto)
+            </th>
+            <th></th>
+        </tr>
+        @for (int i = 0; i < Model.miembros.Count; i++)
+        { 
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.miembros[i].persona.nombrePersona)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.miembros[i].persona.usuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.miembros[i].persona.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.miembros[i].persona.cargo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.miembros[i].persona.grupo)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(Model.miembros[i].persona.foto))
+                    {
+                        <img src="@Url.Content(Model.miembros[i].persona.foto)" alt="foto" style="width:100px;height:100px;max-width: 100%;height: auto;" />
+                    }
+
+                </td>
+                <td>
+                    
+                    @Html.ActionLink("Borrar Miembro", "BorrarMiembro", new { id = Model.miembros[i].idMiembroGrupo })
+                </td>
+            </tr>
+        }
+
+    </table>
+}

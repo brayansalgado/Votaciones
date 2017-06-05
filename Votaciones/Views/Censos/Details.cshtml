@@ -1,0 +1,98 @@
+﻿@model Votaciones.Models.Censo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Censo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.estado.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comentarios)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comentarios)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaHoraInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaHoraInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaHoraFinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaHoraFinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsParaTodoUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsParaTodoUsuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HabilitarVotosBlanco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HabilitarVotosBlanco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidadVotos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidadVotos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantVotosBlanco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantVotosBlanco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CandidatoGanadorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CandidatoGanadorId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idVotacion }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -103,6 +103,7 @@ namespace Votaciones.Controllers
                 return HttpNotFound();
             }
             return View(estado);
+
         }
 
         // POST: Estados/Delete/5
@@ -112,7 +113,26 @@ namespace Votaciones.Controllers
         {
             Estado estado = db.Estados.Find(id);
             db.Estados.Remove(estado);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException!=null &&
+                    ex.InnerException.InnerException!=null&&
+                    ex.InnerException.InnerException.Message.Contains("REFERENCE"))
+                {
+                    ViewBag.Error = "No se puede borrar el elemento porque está relacionado con otros datos";
+                }
+                else
+                {
+                    ViewBag.Error = ex.Message;
+                }
+                return View(estado);
+            }
+
+            
             return RedirectToAction("Index");
         }
 
