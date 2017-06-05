@@ -22,9 +22,9 @@
 </div>
 
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.idGrupo }) 
-    @Html.ActionLink("Adicionar Miembro", "AdicionarMiembro", new { idGrupo = Model.idGrupo })
-    @Html.ActionLink("Volver a la lista", "Index" )
+    @Html.ActionLink("Editar", "Edit", new { id = Model.idGrupo }, new { @class = "btn btn-primary" }) 
+    @Html.ActionLink("Adicionar Miembro", "AdicionarMiembro", new { idGrupo = Model.idGrupo }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Volver a la lista", "Index", new {  }, new { @class = "btn btn-primary" })
 </p>
 @if (Model.miembros.Count==0)
 {
@@ -81,7 +81,7 @@ else
                 </td>
                 <td>
                     
-                    @Html.ActionLink("Borrar Miembro", "BorrarMiembro", new { id = Model.miembros[i].idMiembroGrupo })
+                    @Html.ActionLink("Borrar Miembro", "BorrarMiembro", new { id = Model.miembros[i].idMiembroGrupo }, new { @class = "btn btn-danger",onclick="return confirm('¿Desea Eliminar el Registro?')" })
                 </td>
             </tr>
         }

@@ -9,9 +9,9 @@ namespace Votaciones.Models
     public class Estado
     {
         [Key]
-        [Display(Name = "Estado Votación")]
+        
         public int idEstado { get; set; }
-        [Display(Name = " Descripcioón Estado Votación")]
+        [Display(Name = "Estado Votación")]
         [Required(ErrorMessage = "Usted debe ingresar {0}")]
         [StringLength(50, ErrorMessage = "El campo {0} debe tener minimo {2} caracteres.", MinimumLength = 3)]
         public String descripcion { get; set; }

@@ -15,7 +15,18 @@ namespace Votaciones.Controllers
     {
         private VotacionesContext db = new VotacionesContext();
 
-       [HttpGet]
+        [HttpGet]
+        public ActionResult BorrarMiembro(int id)
+        {
+            var miembro = db.MiembrosDeGrupo.Find(id);
+            if (miembro!=null)
+            {
+                db.MiembrosDeGrupo.Remove(miembro);
+                db.SaveChanges();
+            }
+            return RedirectToAction(string.Format("Details/{0}",miembro.idGrupo));
+        }
+        [HttpGet]
         public ActionResult AdicionarMiembro(int idGrupo)
         {
             ViewBag.idPersona = new SelectList(db.Personas.OrderBy(u=>u.nombrePersona), "idPersona", "nombrePersona");
@@ -175,7 +186,7 @@ namespace Votaciones.Controllers
             }
             return RedirectToAction("Index");
         }
-
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)
